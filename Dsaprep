@@ -1,0 +1,50 @@
+"find repetitive number and return that number"
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int findDuplicate(int* nums, int numsSize) {
+    int slow = nums[0];
+    int fast = nums[0];
+    
+    // Phase 1: Finding the intersection point in the cycle
+    do {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+    } while (slow != fast);
+    
+    // Phase 2: Finding the entrance to the cycle
+    slow = nums[0];
+    while (slow != fast) {
+        slow = nums[slow];
+        fast = nums[fast];
+    }
+    
+    return slow;
+}
+
+int main() {
+    int n;
+    printf("Enter the number of elements (n+1): ");
+    scanf("%d", &n);
+    
+    // Allocate memory for the array
+    int* nums = (int*)malloc((n + 1) * sizeof(int));
+    if (nums == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+    
+    printf("Enter the elements of the array:\n");
+    for (int i = 0; i <= n; i++) {
+        scanf("%d", &nums[i]);
+    }
+    
+    int duplicate = findDuplicate(nums, n + 1);
+    printf("The duplicate number is: %d\n", duplicate);
+    
+    // Free allocated memory
+    free(nums);
+    return 0;
+}
+    
