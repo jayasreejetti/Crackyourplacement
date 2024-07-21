@@ -1,0 +1,74 @@
+#include<stdio.h>
+#include<stdlib.h>
+void sortcolors(int *nums,int size)
+{
+  int low=0,mid=0,high=size-1;
+  while(mid<=high)
+  {
+    if( nums[ mid]==0)
+    {
+      int temp=nums[low];
+      nums[low] = nums[ mid];
+      nuns[mid]= temp;
+      low++;
+      mid++;
+    } elseif (nums[ mid]==1)
+     {
+       mid++;
+     }
+    else{
+     int temp = nums[ high];
+     nums[ high] = nund[mid];
+     nums[ mid]= temp;
+     high--;
+    }
+}
+int main()
+{
+ int size ;
+ int * nums;
+    printf("Enter the number of elements: ");
+    scanf("%d", &size);
+
+    // Allocate memory for the array
+    nums = (int *)malloc(size * sizeof(int));
+    if (nums == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    // Take input for the array elements
+    printf("Enter the elements (0, 1, or 2):\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &nums[i]);
+        if (nums[i] < 0 || nums[i] > 2) {
+            printf("Invalid input. Please enter 0, 1, or 2.\n");
+            free(nums);
+            return 1;
+        }
+    }
+
+    // Print initial array
+    printf("Initial array:\n");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", nums[i]);
+    }
+    printf("\n");
+
+    // Sort the array
+    sortColors(nums, size);
+
+    // Print sorted array
+    printf("Sorted array:\n");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", nums[i]);
+    }
+    printf("\n");
+
+    // Free allocated memory
+    free(nums);
+
+    return 0;
+}
+    
+
