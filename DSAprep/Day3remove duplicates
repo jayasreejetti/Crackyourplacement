@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<stdlib.h>
+int removeduplicates(int *nums,int numsSize)
+ if(nunsSize==0)
+ {
+   return 0;
+}
+int k = 1;
+for( int i= 1; i< numsSize;i++);
+ if(nums[i]!= nums[k-1])
+ {
+  nums[k]  =nums[i];
+  k++;
+ }
+}
+return k;
+}
+int main() {
+    int numsSize;
+    
+    printf("Enter the number of elements: ");
+    scanf("%d", &numsSize);
+
+    if (numsSize <= 0) {
+        printf("Number of elements should be positive.\n");
+        return 1;
+    }
+
+    int* nums = (int*)malloc(numsSize * sizeof(int));
+    if (nums == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+
+    printf("Enter the elements: ");
+    for (int i = 0; i < numsSize; i++) {
+        scanf("%d", &nums[i]);
+    }
+    
+    int k = removeDuplicates(nums, numsSize);
+    
+    // Replace remaining elements with '_'
+    for (int i = k; i < numsSize; i++) {
+        nums[i] = '_';
+    }
+
+    printf("Output: %d, nums = [", k);
+    for (int i = 0; i < numsSize; i++) {
+        if (i < k) {
+            printf("%d", nums[i]);
+        } else {
+            printf("_");
+        }
+        if (i < numsSize - 1) {
+            printf(",");
+        }
+    }
+    printf("]\n");
+    
+    free(nums);
+    return 0;
+}
+    
