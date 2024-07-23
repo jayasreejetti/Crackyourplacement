@@ -1,0 +1,89 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void setZeroes(int** matrix, int rows, int cols) {
+    int* rowZero = (int*)malloc(rows * sizeof(int));
+    int* colZero = (int*)malloc(cols * sizeof(int));
+    
+    // Initialize the row and column zero arrays to 0
+    for (int i = 0; i < rows; i++) {
+        rowZero[i] = 0;
+    }
+    for (int j = 0; j < cols; j++) {
+        colZero[j] = 0;
+    }
+    
+    // Find the rows and columns that need to be zeroed
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (matrix[i][j] == 0) {
+                rowZero[i] = 1;
+                colZero[j] = 1;
+            }
+        }
+    }
+    
+    // Zero out the rows
+    for (int i = 0; i < rows; i++) {
+        if (rowZero[i]) {
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+    
+    // Zero out the columns
+    for (int j = 0; j < cols; j++) {
+        if (colZero[j]) {
+            for (int i = 0; i < rows; i++) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+    
+    free(rowZero);
+    free(colZero);
+}
+
+int main() {
+    int rows, cols;
+    
+    printf("Enter number of rows: ");
+    scanf("%d", &rows);
+    printf("Enter number of columns: ");
+    scanf("%d", &cols);
+    
+    // Dynamically allocate the matrix
+    int** matrix = (int**)malloc(rows * sizeof(int*));
+    for (int i = 0; i < rows; i++) {
+        matrix[i] = (int*)malloc(cols * sizeof(int));
+    }
+    
+    // Read matrix elements
+    printf("Enter matrix elements:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+    
+    // Process the matrix
+    setZeroes(matrix, rows, cols);
+    
+    // Print the modified matrix
+    printf("Modified matrix:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    
+    // Free the allocated memory
+    for (int i = 0; i < rows; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
+    
+    return 0;
+}
